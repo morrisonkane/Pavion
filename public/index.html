@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PavionBank - Your Money, Safer. Smarter. Faster.</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="header">
+        <div class="logo">Pavion<span>Bank</span></div>
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+    <!-- Tap outside the drawer to close it -->
+    <div class="nav-drawer-overlay" id="navDrawerOverlay" aria-hidden="true"></div>
+
+    <!-- Mobile Nav Drawer -->
+    <nav class="nav-drawer" id="navDrawer" aria-label="Main navigation">
+        <ul>
+            <li><a href="#" onclick="showSection('homeSection')">Home</a></li>
+            <li><a href="#" onclick="showSection('onboardingSection')">Open Free Account</a></li>
+            <li><a href="#" onclick="showSection('loginSection')">Login</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="contact-support.html">Contact Support</a></li>
+            <li><a href="support.html">Help & Support</a></li>
+            <li><a href="faq.html">FAQs</a></li>
+            <li><a href="#">Accounts & Cards</a></li>
+        </ul>
+        <div class="drawer-footer">
+            <p>Trust & Legal</p>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+        </div>
+    </nav>
+
+    <!-- MAIN LANDING SECTION -->
+    <section id="homeSection" class="main-section active-section">
+        <div class="hero">
+            <h1>Your Money, <br>Safer. Smarter. Faster.</h1>
+            <p>Digital bank built to help you save securely, send money instantly, and grow your finances — all in one powerful app.</p>
+            
+            <div class="hero-btns">
+                <button class="btn-primary" onclick="showSection('onboardingSection')">Open Free Account</button>
+                <button class="btn-secondary">See How It Works</button>
+            </div>
+            <p class="disclaimer">Pavion Bank is a financial technology platform. Banking services are provided by licensed partner institutions.</p>
+            
+            <!-- Credit Card Visual -->
+            <div class="card-mockup">
+                <div class="card-top">
+                    <span>PAVION BANK</span>
+                    <span class="visa">VISA</span>
+                </div>
+                <div class="card-number">5399 &bull;&bull;&bull;&bull;&bull; 4921</div>
+                <div class="card-details">
+                    <div>
+                        <small>CARD HOLDER</small>
+                        <p>John Doe</p>
+                    </div>
+                    <div>
+                        <small>VALID THRU</small>
+                        <p>08/28</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Grid Section -->
+        <div class="features-container">
+            <span class="badge-pill">Built for modern banking</span>
+            <h2>Everything you need to manage your money</h2>
+            <p class="section-sub">Powerful banking tools designed to help you save smarter, move faster, and stay in control of your finances — securely.</p>
+
+            <div class="feature-card">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h3>Bank-Grade Security</h3>
+                <p>Your funds and data are protected with advanced encryption, secure authentication, and continuous monitoring.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa-solid fa-bolt"></i>
+                <h3>Instant Transfers</h3>
+                <p>Send and receive money in seconds, anytime, anywhere — no delays, no stress.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa-solid fa-bullseye"></i>
+                <h3>Smart Savings</h3>
+                <p>Automate your savings and track your progress with smart tools designed to grow your money.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa-solid fa-wallet"></i>
+                <h3>Virtual & Physical Cards</h3>
+                <p>Get instant virtual cards for online payments and request physical cards for everyday spending.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa-solid fa-house"></i>
+                <h3>Bill Payments</h3>
+                <p>Pay electricity, internet, airtime, and more in seconds from one secure dashboard.</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fa-solid fa-chart-pie"></i>
+                <h3>Real-Time Insights</h3>
+                <p>Track spending, monitor transactions, and stay in control with real-time financial insights.</p>
+            </div>
+
+            <button class="btn-primary" onclick="showSection('onboardingSection')">Open Free Account</button>
+        </div>
+
+        <!-- Steps Section -->
+        <div class="steps-section">
+            <span class="badge-pill">Get started in minutes</span>
+            <h2>Open your Pavion account in 3 simple steps</h2>
+            <p class="section-sub">No paperwork. No queues. Just fast, secure digital banking from your phone.</p>
+
+            <div class="step-box">
+                <div class="step-num">1</div>
+                <h3>Create your account</h3>
+                <p>Sign up in minutes with your basic details and verify your identity securely.</p>
+            </div>
+            <div class="step-box">
+                <div class="step-num">2</div>
+                <h3>Fund your wallet</h3>
+                <p>Add money instantly via bank transfer or card and start transacting right away.</p>
+            </div>
+            <div class="step-box">
+                <div class="step-num">3</div>
+                <h3>Start banking smarter</h3>
+                <p>Send money, pay bills, save smarter, and track your finances in real time.</p>
+            </div>
+
+            <button class="btn-primary" onclick="showSection('onboardingSection')">Open Free Account</button>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="testimonials-section">
+            <span class="badge-pill">Trusted by Thousands</span>
+            <h2>Hear From Our Users</h2>
+            <p class="section-sub">PavionBank is empowering people to bank smarter, safer, and faster. Here's what our customers are saying.</p>
+
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <div>
+                        <h4>Emily Carter</h4>
+                        <small>Entrepreneur</small>
+                    </div>
+                </div>
+                <p>"PavionBank made managing my business finances effortless. The transfers are instant, and I love the security features!"</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <div>
+                        <h4>Michael Thompson</h4>
+                        <small>Freelancer</small>
+                    </div>
+                </div>
+                <p>"I trust PavionBank with my savings because it's secure, simple, and transparent. I can track everything in real-time."</p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <div>
+                        <h4>Daniel Brooks</h4>
+                        <small>Student</small>
+                    </div>
+                </div>
+                <p>"I love how easy it is to open an account and start banking digitally. The platform feels premium and safe."</p>
+            </div>
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="bottom-cta">
+            <h2>Open Your PavionBank Account Today</h2>
+            <p>Join thousands of users using PavionBank to manage money smarter, faster, and more securely.</p>
+            <button class="btn-primary" onclick="showSection('onboardingSection')">Create Free Account</button>
+        </div>
+    </section>
+
+    <!-- ONBOARDING FLOW SECTION -->
+    <section id="onboardingSection" class="onboarding-section">
+        <div class="onboard-header">
+            <h2>Open a Secure Digital Bank Account</h2>
+            <p>Access modern digital banking with secure accounts, instant transfers, smart wallets, and virtual cards — all in one platform.</p>
+            <ul>
+                <li><i class="fa-solid fa-circle"></i> Bank-grade security & encryption</li>
+                <li><i class="fa-solid fa-circle"></i> Instant transfers & wallet funding</li>
+                <li><i class="fa-solid fa-circle"></i> Virtual cards for online payments</li>
+                <li><i class="fa-solid fa-circle"></i> Secure KYC & account verification</li>
+            </ul>
+        </div>
+
+        <div class="form-container">
+            <h3>Create Your Account</h3>
+            <p class="form-sub">Secure onboarding in a few steps</p>
+
+            <!-- Steps Tabs -->
+            <div class="onboard-tabs">
+                <span class="tab active" id="tabIndicator1">Account</span>
+                <span class="tab" id="tabIndicator2">Profile</span>
+                <span class="tab" id="tabIndicator3">KYC</span>
+                <span class="tab" id="tabIndicator4">Finish</span>
+            </div>
+
+            <!-- Multi-step Form Content -->
+            <form id="multiStepForm" novalidate>
+                <div id="registrationMessage" class="form-message" role="status" aria-live="polite"></div>
+                
+                <!-- STEP 1: Account -->
+                <div class="form-step active" id="formStep1">
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="fullName" name="fullName" autocomplete="name" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="+234 800 000 0000" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="password" name="password" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" minlength="8" placeholder="Re-enter password" required>
+                    </div>
+                    <button type="button" class="btn-primary" data-next-step="2">Continue</button>
+                    <p class="login-redirect">Already have an account? <a href="#" onclick="showSection('loginSection')">Login here..</a></p>
+                </div>
+
+                <!-- STEP 2: Profile -->
+                <div class="form-step" id="formStep2">
+                    <div class="input-group">
+                        <label>Account Type</label>
+                        <select id="accType" name="accountType" required>
+                            <option>Savings Account</option>
+                            <option>Current Account</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Employment Status</label>
+                        <select id="employment" name="employmentStatus" required>
+                            <option>Employed</option>
+                            <option>Self-Employed</option>
+                            <option>Student</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Monthly Income</label>
+                        <select id="income" name="monthlyIncome" required>
+                            <option>Below $10k</option>
+                            <option>$10k - $50k</option>
+                            <option>Above $50k</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Residential Address</label>
+                        <input type="text" id="address" name="address" autocomplete="street-address" placeholder="Residential Address" required>
+                    </div>
+                    <button type="button" class="btn-primary" data-next-step="3">Continue</button>
+                    <p class="login-redirect">Already have an account? <a href="#" onclick="showSection('loginSection')">Login here..</a></p>
+                </div>
+
+                <!-- STEP 3: KYC -->
+                <div class="form-step" id="formStep3">
+                    <div class="input-group">
+                        <label>ID Type</label>
+                        <select id="idType" name="idType" required>
+                            <option>International Passport</option>
+                            <option>National ID Card</option>
+                            <option>Drivers License</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="city" name="city" autocomplete="address-level2" placeholder="City" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="state" name="state" autocomplete="address-level1" placeholder="State" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="country" name="country" autocomplete="country-name" placeholder="Country" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="idNumber" name="idNumber" placeholder="ID Number" required>
+                    </div>
+                    <div class="input-group">
+                        <label>ID Document Upload</label>
+                        <input type="file">
+                    </div>
+                    <div class="input-group">
+                        <label>Your Selfie</label>
+                        <input type="file">
+                    </div>
+                    <button type="submit" class="btn-primary" id="submitRegistration">Submit & Finish</button>
+                    <p class="login-redirect">Already have an account? <a href="#" onclick="showSection('loginSection')">Login here..</a></p>
+                </div>
+
+                <!-- STEP 4: Finish/Success -->
+                <div class="form-step" id="formStep4" style="text-align: center; padding: 30px 0;">
+                    <h3 style="color: #27ae60; margin-bottom: 10px;">Application Received</h3>
+                    <p style="color: #aaa;">Your application has been submitted and is awaiting review.</p>
+                    <button type="button" class="btn-primary" onclick="showSection('homeSection')" style="margin-top: 20px;">Back to Home</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- LOGIN SECTION -->
+    <section id="loginSection" class="login-section">
+        <div class="login-card">
+            <div id="loginMessage" class="form-message" role="status" aria-live="polite"></div>
+            <div class="login-logo-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <h2>Welcome Back</h2>
+            <p>Login securely to your PavionBank account</p>
+            
+            <div class="input-group">
+                <label>Email or Username</label>
+                <input type="email" id="loginEmail" autocomplete="username" placeholder="Email address" required>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" autocomplete="current-password" placeholder="Enter password" required>
+            </div>
+            
+            <button type="button" id="loginButton" class="btn-primary" style="background:#1b4f72; color:#fff;">Login to Dashboard</button>
+            <div class="login-links">
+                <p>New here? <a href="#" onclick="showSection('onboardingSection')">Create one now</a></p>
+                <a href="#">Forgot Password?</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- LOGGED-IN CUSTOMER DASHBOARD (demo interface) -->
+    <section id="dashboardSection" class="dashboard-section">
+      <div class="dash-topbar">
+        <div class="dash-brand"><span class="dash-brand-mark">P</span><strong>PavionBank</strong></div>
+        <div class="dash-top-actions">
+          <button class="icon-button" type="button" aria-label="Notifications" onclick="showDashboardNotice('You are all caught up.')"><i class="fa-regular fa-bell"></i><span class="notification-dot"></span></button>
+          <button class="profile-chip" type="button" onclick="showDashboardTab('profile')"><span class="avatar">M</span><span id="dashTopName">Maria</span><i class="fa-solid fa-chevron-down"></i></button>
+        </div>
+      </div>
+      <div class="dashboard-layout">
+        <aside class="dash-sidebar">
+          <div class="sidebar-label">MENU</div>
+          <button class="dash-nav active" data-dash-tab="home" onclick="showDashboardTab('home')"><i class="fa-solid fa-house"></i> Overview</button>
+          <button class="dash-nav" data-dash-tab="accounts" onclick="showDashboardTab('accounts')"><i class="fa-solid fa-wallet"></i> My Accounts</button>
+          <button class="dash-nav" data-dash-tab="cards" onclick="showDashboardTab('cards')"><i class="fa-regular fa-credit-card"></i> Cards</button>
+          <button class="dash-nav" data-dash-tab="history" onclick="showDashboardTab('history')"><i class="fa-solid fa-clock-rotate-left"></i> Transaction History</button>
+          <button class="dash-nav" data-dash-tab="profile" onclick="showDashboardTab('profile')"><i class="fa-regular fa-user"></i> Account Settings</button>
+          <div class="sidebar-help"><i class="fa-solid fa-shield-halved"></i><strong>Your account security</strong><p>Never share your password or one-time verification codes.</p></div>
+          <button class="dash-nav logout-link" onclick="logoutDashboard()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
+        </aside>
+
+        <main class="dash-main">
+          <div id="dashboardNotice" class="dashboard-notice" role="status"></div>
+
+          <div class="dash-panel active" id="dashTab-home">
+            <div class="dash-welcome-row"><div><p class="eyebrow">CUSTOMER DASHBOARD</p><h1>Welcome back, <span id="dashWelcomeName">Maria</span></h1><p class="muted">Here’s your financial overview and recent activity.</p></div><span class="account-status"><i class="fa-solid fa-circle-check"></i> Demo account</span></div>
+            <div class="dash-summary-grid">
+              <article class="summary-card balance-card"><div class="summary-title">Available balance <i class="fa-regular fa-eye"></i></div><div class="summary-amount" id="dashBalance">$1,341,000.00</div><div class="summary-foot"><span><i class="fa-solid fa-circle-check"></i> Primary account</span><span class="demo-tag">SAMPLE DATA</span></div></article>
+              <article class="summary-card income-card"><div class="summary-title">Inflows this month</div><div class="summary-amount">$0.00</div><div class="summary-foot">Total credits</div><div class="summary-icon"><i class="fa-solid fa-arrow-down"></i></div></article>
+              <article class="summary-card outflow-card"><div class="summary-title">Outflows this month</div><div class="summary-amount">$0.00</div><div class="summary-foot">Total debits</div><div class="summary-icon"><i class="fa-solid fa-arrow-up"></i></div></article>
+            </div>
+            <div class="dash-actions-row">
+              <button class="action-button action-light" onclick="showDashboardNotice('Deposits can only be made by a PavionBank administrator. Please contact support.')"><i class="fa-solid fa-lock"></i> Admin Deposit Only</button>
+              <button class="action-button action-light" onclick="openDashModal('sendModal')"><i class="fa-solid fa-paper-plane"></i> Send Money</button>
+              <button class="action-button action-light" onclick="showDashboardTab('accounts')"><i class="fa-solid fa-wallet"></i> View Accounts</button>
+            </div>
+            <div class="dash-content-grid">
+              <article class="dash-card"><div class="dash-card-heading"><div><h2>My accounts</h2><p class="muted">Your linked PavionBank accounts</p></div><button class="text-button" onclick="showDashboardTab('accounts')">View all</button></div>
+                <div class="account-list-item"><div class="account-symbol"><i class="fa-solid fa-building-columns"></i></div><div class="account-info"><strong>USD Account</strong><span>•••• 4921 · Primary</span></div><div class="account-value"><strong id="dashAccountBalance">$1,341,000.00</strong><span>Available balance</span></div></div>
+              </article>
+              <article class="dash-card"><div class="dash-card-heading"><div><h2>Quick support</h2><p class="muted">Need help with your account?</p></div></div><div class="support-box"><i class="fa-regular fa-comments"></i><div><strong>We’re here to help</strong><p>Contact support for account or transaction questions.</p></div></div><button class="action-button action-light full-width" onclick="showDashboardNotice('Support contact details can be configured by the site administrator.')">Contact support</button></article>
+            </div>
+            <article class="dash-card transactions-card"><div class="dash-card-heading"><div><h2>Recent transactions</h2><p class="muted">Your latest account activity</p></div><button class="text-button" onclick="showDashboardTab('history')">View history</button></div>
+              <div class="table-wrap"><table class="transactions-table"><thead><tr><th>Transaction</th><th>Date</th><th>Type</th><th>Status</th><th class="align-right">Amount</th></tr></thead><tbody id="recentTransactionsBody"><tr><td><span class="transaction-icon"><i class="fa-solid fa-arrow-down"></i></span><span class="transaction-name">Sample deposit</span></td><td>—</td><td>Credit</td><td><span class="status-pill pending">Demo</span></td><td class="align-right amount-positive">+$0.00</td></tr><tr><td><span class="transaction-icon debit"><i class="fa-solid fa-arrow-up"></i></span><span class="transaction-name">Sample transfer</span></td><td>—</td><td>Debit</td><td><span class="status-pill pending">Demo</span></td><td class="align-right amount-negative">−$0.00</td></tr></tbody></table></div>
+              <p class="demo-disclaimer">This is a front-end preview. The displayed figures and transactions are sample data and are not a statement of real funds.</p>
+            </article>
+          </div>
+
+          <div class="dash-panel" id="dashTab-accounts"><div class="dash-page-heading"><p class="eyebrow">YOUR MONEY</p><h1>My Accounts</h1><p class="muted">Review your accounts and available balances.</p></div><article class="dash-card account-detail-card"><div class="account-detail-head"><div class="account-symbol large"><i class="fa-solid fa-building-columns"></i></div><span class="account-status">Primary account</span></div><p class="muted">USD Account</p><h2 id="accountsBalance">$1,341,000.00</h2><p class="muted">Account number · •••• 4921</p><div class="account-detail-actions"><button class="action-button action-light" onclick="showDashboardNotice('Deposits can only be made by a PavionBank administrator. Please contact support.')">Admin Deposit Only</button><button class="action-button action-light" onclick="openDashModal('sendModal')">Send funds</button></div><p class="demo-disclaimer">Sample balance for interface preview only. Connect a verified account API before displaying real balances.</p></article></div>
+
+          <div class="dash-panel" id="dashTab-cards"><div class="dash-page-heading"><p class="eyebrow">PAYMENTS</p><h1>Cards</h1><p class="muted">Manage your virtual and physical cards.</p></div><div class="card-preview-grid"><article class="virtual-bank-card"><div class="virtual-card-top"><strong>PAVION BANK</strong><span>VISA</span></div><div class="virtual-card-chip"></div><div class="virtual-card-number">•••• &nbsp; •••• &nbsp; •••• &nbsp; 4921</div><div class="virtual-card-bottom"><div><small>CARD HOLDER</small><strong id="dashCardHolder">MARIA</strong></div><div><small>VALID THRU</small><strong>••/••</strong></div></div><span class="demo-tag">PREVIEW CARD</span></article><article class="dash-card card-status-card"><h2>Card controls</h2><p class="muted">Card issuing and controls are not connected yet.</p><div class="card-control-row"><span><i class="fa-solid fa-lock"></i> Card status</span><strong class="status-pill pending">Preview only</strong></div><button class="action-button action-light full-width" onclick="showDashboardNotice('Card issuing is not connected. No card has been issued.')">Request a card</button></article></div></div>
+
+          <div class="dash-panel" id="dashTab-history"><div class="dash-page-heading"><p class="eyebrow">ACCOUNT ACTIVITY</p><h1>Transaction History</h1><p class="muted">Review and filter account activity.</p></div><article class="dash-card"><div class="history-filters"><label>Account<select id="historyAccount"><option value="all">All accounts</option><option>USD Account</option></select></label><label>Type<select id="historyType"><option value="all">All types</option><option>Credit</option><option>Debit</option></select></label><label>Status<select id="historyStatus"><option value="all">All statuses</option><option>Demo</option><option>Completed</option><option>Pending</option></select></label><button class="action-button action-dark" onclick="filterDemoTransactions()">Apply filters</button></div><div class="table-wrap"><table class="transactions-table"><thead><tr><th>Transaction</th><th>Date</th><th>Type</th><th>Status</th><th class="align-right">Amount</th></tr></thead><tbody id="historyTransactionsBody"><tr><td colspan="5" class="empty-table">No real transactions connected yet. Sample entries appear on the Overview page.</td></tr></tbody></table></div><p class="demo-disclaimer">Live transaction history requires a secure backend endpoint.</p></article></div>
+
+          <div class="dash-panel" id="dashTab-profile"><div class="dash-page-heading"><p class="eyebrow">PREFERENCES & SECURITY</p><h1>Account Settings</h1><p class="muted">Manage your profile and security preferences.</p></div><article class="dash-card profile-card"><div class="profile-banner"><span class="avatar big-avatar" id="dashProfileAvatar">M</span><div><h2 id="dashProfileName">Maria</h2><p class="muted" id="dashProfileEmail">Signed in customer</p><span class="account-status">Demo profile</span></div></div><div class="profile-fields"><label>Full name<input id="profileNameInput" type="text" placeholder="Full name"></label><label>Email address<input id="profileEmailInput" type="email" placeholder="Email address"></label><label>Phone number<input type="tel" placeholder="Phone number"></label></div><button class="action-button action-dark" onclick="saveDemoProfile()">Save profile preview</button><div class="security-section"><h2>Security</h2><div class="security-row"><div><strong>Password</strong><p class="muted">Keep your password private and unique.</p></div><span class="status-pill pending">Backend required</span></div><div class="security-row"><div><strong>Identity verification (KYC)</strong><p class="muted">Verification status is managed by your account administrator.</p></div><span class="status-pill pending">Not connected</span></div></div></article></div>
+        </main>
+      </div>
+
+      <nav class="dash-mobile-nav" aria-label="Dashboard navigation"><button class="active" data-dash-tab="home" onclick="showDashboardTab('home')"><i class="fa-solid fa-house"></i><span>Home</span></button><button data-dash-tab="accounts" onclick="showDashboardTab('accounts')"><i class="fa-solid fa-wallet"></i><span>Accounts</span></button><button data-dash-tab="cards" onclick="showDashboardTab('cards')"><i class="fa-regular fa-credit-card"></i><span>Cards</span></button><button data-dash-tab="history" onclick="showDashboardTab('history')"><i class="fa-solid fa-clock-rotate-left"></i><span>History</span></button><button data-dash-tab="profile" onclick="showDashboardTab('profile')"><i class="fa-regular fa-user"></i><span>Profile</span></button></nav>
+    </section>
+
+    <div class="dash-modal-backdrop" id="sendModal" role="dialog" aria-modal="true" aria-labelledby="sendModalTitle">
+      <div class="dash-modal"><button class="modal-close" onclick="closeDashModal('sendModal')" aria-label="Close">&times;</button><p class="eyebrow">PAYMENTS</p><h2 id="sendModalTitle">Send Money</h2><p class="muted">Choose a transfer type and enter recipient details.</p><div class="transfer-toggle"><button class="active" type="button" onclick="setTransferType('local', this)">Local</button><button type="button" onclick="setTransferType('international', this)">International</button></div><form id="sendMoneyDemoForm"><label>From account<select><option>USD Account · •••• 4921</option></select></label><label>Recipient full name<input id="transferRecipientName" name="recipientName" required autocomplete="off" placeholder="Recipient full name"></label><label>Account number / IBAN<input id="transferAccountNumber" name="accountNumber" required autocomplete="off" placeholder="Recipient account number"></label><div id="internationalFields" hidden><label>SWIFT / BIC<input placeholder="SWIFT / BIC"></label><label>Bank name<input placeholder="Bank name"></label><label>Bank country<input placeholder="Bank country"></label></div><label>Amount<input id="transferAmount" name="amount" type="number" min="0.01" step="0.01" required placeholder="0.00"></label><p class="demo-disclaimer">Demo only: this records a simulated transfer and does not send real money. Contact an administrator if your demo balance is too low.</p><div class="modal-actions"><button class="action-button action-dark" type="submit">Continue</button><button class="action-button action-light" type="button" onclick="closeDashModal('sendModal')">Cancel</button></div></form></div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">Pavion <span>Bank</span></div>
+        <p class="footer-desc">PavionBank is a simulated digital banking demo for exploring account features, support information, and sample transactions.</p>
+        
+        <ul class="footer-links">
+            <li><i class="fa-solid fa-lock"></i> Bank-grade encryption</li>
+            <li><i class="fa-solid fa-shield"></i> Demo environment — not a licensed bank</li>
+            <li><i class="fa-solid fa-bolt"></i> Instant transfers & smart savings</li>
+        </ul>
+
+        <div class="footer-col-links">
+            <h4>Company</h4>
+            <a href="#" onclick="showSection('homeSection')">Home</a>
+            <a href="about-us.html">About Us</a>
+            <a href="contact-support.html">Contact Support</a>
+            <a href="support.html">Help & Support</a>
+            <a href="faq.html">FAQs</a>
+            <a href="security.html">Security</a>
+            <a href="index.html#homeSection">Accounts & Cards</a>
+        </div>
+
+        <div class="footer-col-links">
+            <h4>Trust & Legal</h4>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+            <a href="#">Refund & Withdrawal Policy</a>
+            <a href="#">Help Center</a>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; Pavion Bank. All rights reserved.</p>
+            <small>PavionBank is a demonstration website. Demo balances and transfers are simulated; no real money is held or moved.</small>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
