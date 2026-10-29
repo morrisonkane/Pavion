@@ -300,13 +300,13 @@
                         <input type="text" id="idNumber" name="idNumber" placeholder="ID Number" required>
                     </div>
                     <div class="input-group">
-                        <label>ID Document Upload</label>
-                        <input type="file">
-                    </div>
-                    <div class="input-group">
-                        <label>Your Selfie</label>
-                        <input type="file">
-                    </div>
+    <label for="signupIdDocument">ID Document Upload</label>
+    <input type="file" id="signupIdDocument" name="idDocument" accept="image/*,.pdf">
+</div><div class="input-group">
+    <label for="signupSelfie">Your Selfie (required)</label>
+    <input type="file" id="signupSelfie" name="selfie" accept="image/jpeg,image/png,image/webp" required>
+    <img id="signupSelfiePreview" alt="Selfie preview" hidden style="width:100px;height:100px;object-fit:cover;border-radius:50%;margin-top:10px;">
+</div>
                     <button type="submit" class="btn-primary" id="submitRegistration">Submit & Finish</button>
                     <p class="login-redirect">Already have an account? <a href="#" onclick="showSection('loginSection')">Login here..</a></p>
                 </div>
