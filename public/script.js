@@ -123,14 +123,43 @@ function getRegistrationPayload() {
   };
 }
 const registrationForm = field('multiStepForm');
+async function ensureSignupSelfieReady() {
+  const input = field('signupSelfie');
+  const file = input?.files?.[0];
+  // Read the selected file at submit time as well: on some mobile browsers
+  // FileReader.onload can finish after the user taps Submit.
+  if (file && !window.pavionSignupSelfie) {
+    if (!['image/jpeg','image/png','image/webp'].includes(file.type)) {
+      throw new Error('Choose a JPG, PNG, or WebP selfie.');
+    }
+    if (file.size > 300 * 1024) {
+      throw new Error('Your selfie must be 300 KB or smaller.');
+    }
+    window.pavionSignupSelfie = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(String(reader.result || ''));
+      reader.onerror = () => reject(new Error('Could not read your selfie. Please select it again.'));
+      reader.readAsDataURL(file);
+    });
+    const preview = field('signupSelfiePreview');
+    if (preview) { preview.src = window.pavionSignupSelfie; preview.hidden = false; }
+  }
+  return Boolean(window.pavionSignupSelfie);
+}
 if (registrationForm) registrationForm.addEventListener('submit', async event => {
   event.preventDefault();
   clearMessage(field('registrationMessage'));
   if (!validateStep(3)) return;
-  if (!window.pavionSignupSelfie) { setMessage(field('registrationMessage'), 'Please upload a clear selfie to use as your profile picture.', 'error'); field('signupSelfie')?.focus(); return; }
   const submit = field('submitRegistration');
-  submit.disabled = true; submit.textContent = 'Submitting...';
+  submit.disabled = true; submit.textContent = 'Checking selfie...';
   try {
+    const selfieReady = await ensureSignupSelfieReady();
+    if (!selfieReady) {
+      setMessage(field('registrationMessage'), 'Please select a selfie and wait until its preview appears before submitting.', 'error');
+      field('signupSelfie')?.focus();
+      return;
+    }
+    submit.textContent = 'Submitting...';
     const response = await fetch(`${API_BASE}${REGISTER_ENDPOINT}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
