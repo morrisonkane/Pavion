@@ -118,7 +118,8 @@ function getRegistrationPayload() {
     state: field('state').value.trim(),
     country: field('country').value.trim(),
     idType: field('idType').value,
-    idNumber: field('idNumber').value.trim()
+    idNumber: field('idNumber').value.trim(),
+    profilePhoto: window.pavionSignupSelfie || ''
   };
 }
 const registrationForm = field('multiStepForm');
@@ -126,6 +127,7 @@ if (registrationForm) registrationForm.addEventListener('submit', async event =>
   event.preventDefault();
   clearMessage(field('registrationMessage'));
   if (!validateStep(3)) return;
+  if (!window.pavionSignupSelfie) { setMessage(field('registrationMessage'), 'Please upload a clear selfie to use as your profile picture.', 'error'); field('signupSelfie')?.focus(); return; }
   const submit = field('submitRegistration');
   submit.disabled = true; submit.textContent = 'Submitting...';
   try {
@@ -145,6 +147,18 @@ if (registrationForm) registrationForm.addEventListener('submit', async event =>
   } finally {
     submit.disabled = false; submit.textContent = 'Submit & Finish';
   }
+});
+const signupSelfieInput = field('signupSelfie');
+if (signupSelfieInput) signupSelfieInput.addEventListener('change', () => {
+  const file = signupSelfieInput.files && signupSelfieInput.files[0];
+  window.pavionSignupSelfie = '';
+  const preview = field('signupSelfiePreview');
+  if (!file) { if (preview) preview.hidden = true; return; }
+  if (!['image/jpeg','image/png','image/webp'].includes(file.type)) { setMessage(field('registrationMessage'), 'Choose a JPG, PNG, or WebP selfie.', 'error'); signupSelfieInput.value=''; return; }
+  if (file.size > 300*1024) { setMessage(field('registrationMessage'), 'Your selfie must be 300 KB or smaller.', 'error'); signupSelfieInput.value=''; return; }
+  const reader = new FileReader();
+  reader.onload = () => { window.pavionSignupSelfie = String(reader.result || ''); if (preview) { preview.src=window.pavionSignupSelfie; preview.hidden=false; } clearMessage(field('registrationMessage')); };
+  reader.readAsDataURL(file);
 });
 const loginButton = field('loginButton');
 if (loginButton) loginButton.addEventListener('click', async () => {
@@ -238,7 +252,9 @@ function applyDashboardUser(user) {
   const emailLabel = field('dashProfileEmail'); if (emailLabel) emailLabel.textContent = email || 'Signed in customer';
   const emailInput = field('profileEmailInput'); if (emailInput) emailInput.value = email;
   const avatarText = firstName.charAt(0).toUpperCase();
-  ['dashProfileAvatar'].forEach(id => { const el=field(id); if(el) el.textContent=avatarText; });
+  ['dashProfileAvatar','dashTopAvatar'].forEach(id => { const el=field(id); if(el){ el.textContent=user.profilePhoto?'':avatarText; el.style.backgroundImage=user.profilePhoto?`url(\"${user.profilePhoto}\")`:''; el.style.backgroundSize='cover'; el.style.backgroundPosition='center'; el.setAttribute('aria-label', user.profilePhoto?'Profile picture':'Profile picture placeholder'); } });
+  const phoneInput=field('profilePhoneInput'); if(phoneInput) phoneInput.value=user.phone||'';
+  const currentPinWrap=field('currentPinWrap'); if(currentPinWrap) currentPinWrap.style.display=user.hasTransferPin?'flex':'none';
   const cardHolder=field('dashCardHolder'); if(cardHolder) cardHolder.textContent=firstName.toUpperCase();
   const number = user && user.accountNumber ? String(user.accountNumber) : '';
   document.querySelectorAll('.account-info span').forEach(el => { if(number) el.textContent = '•••• ' + number.slice(-4) + ' · Primary'; });
@@ -250,10 +266,13 @@ function renderTransactions(transactions=[]) {
   const rows = transactions.map(tx => {
     const credit = tx.type === 'deposit';
     const amount = Number(tx.amount) || 0;
-    const desc = String(tx.description || (credit ? 'Deposit' : 'Transfer'));
+    const rawDesc = String(tx.description || (credit ? 'Deposit' : 'Transfer'));
+    const desc = credit && (tx.admin || /admin.*deposit|deposit.*admin/i.test(rawDesc)) ? 'Trace made deposits' : rawDesc;
     const type = credit ? 'Credit' : 'Debit';
     const icon = credit ? 'fa-arrow-down' : 'fa-arrow-up';
-    return `<tr><td><span class="transaction-icon ${credit?'':'debit'}"><i class="fa-solid ${icon}"></i></span><span class="transaction-name">${escapeHtml(desc)}</span></td><td>${dateLabel(tx.createdAt)}</td><td>${type}</td><td><span class="status-pill pending">Demo</span></td><td class="align-right ${credit?'amount-positive':'amount-negative'}">${credit?'+':'−'}${money(amount)}</td></tr>`;
+    const statusLabel = credit ? 'Received' : 'Sent';
+    const statusClass = credit ? 'received' : 'sent';
+    return `<tr><td><span class="transaction-icon ${credit?'':'debit'}"><i class="fa-solid ${icon}"></i></span><span class="transaction-name">${escapeHtml(desc)}</span></td><td>${dateLabel(tx.createdAt)}</td><td>${type}</td><td><span class="status-pill ${statusClass}">${statusLabel}</span></td><td class="align-right ${credit?'amount-positive':'amount-negative'}">${credit?'+':'−'}${money(amount)}</td></tr>`;
   }).join('');
   const empty = '<tr><td colspan="5" class="empty-table">No transactions yet.</td></tr>';
   if (recent) recent.innerHTML = rows || empty;
@@ -300,9 +319,22 @@ async function logoutDashboard() {
   localStorage.removeItem('pavionUser');
   showSection('homeSection');
 }
-function saveDemoProfile() {
-  showDashboardNotice('Profile editing is not connected to the backend yet.');
+async function saveDemoProfile() {
+  const name=field('profileNameInput')?.value.trim(), email=field('profileEmailInput')?.value.trim(), phone=field('profilePhoneInput')?.value.trim()||'';
+  if(!name||!email){showDashboardNotice('Enter your name and email address.');return;}
+  try{const data=await apiRequest('/api/profile',{method:'POST',body:JSON.stringify({name,email,phone,profilePhoto:window.pavionPendingPhoto||''})});window.pavionPendingPhoto='';renderDashboardData(data);showDashboardNotice(data.message||'Profile saved.');}
+  catch(error){showDashboardNotice(error.message);}
 }
+async function saveTransferPin(){
+  const pin=field('newTransferPin')?.value||'', confirm=field('confirmTransferPin')?.value||'', currentPin=field('currentTransferPin')?.value||'';
+  if(!/^\d{4}$/.test(pin)){showDashboardNotice('Choose a PIN containing exactly 4 digits.');return;}
+  if(pin!==confirm){showDashboardNotice('The new PINs do not match.');return;}
+  try{const data=await apiRequest('/api/transfer-pin',{method:'POST',body:JSON.stringify({pin,currentPin})});['newTransferPin','confirmTransferPin','currentTransferPin'].forEach(id=>{if(field(id))field(id).value='';});const user=JSON.parse(localStorage.getItem('pavionUser')||'{}');user.hasTransferPin=true;localStorage.setItem('pavionUser',JSON.stringify(user));applyDashboardUser(user);showDashboardNotice(data.message);}
+  catch(error){showDashboardNotice(error.message);}
+}
+const profilePhotoInput=field('profilePhotoInput');
+if(profilePhotoInput) profilePhotoInput.addEventListener('change',()=>{const file=profilePhotoInput.files&&profilePhotoInput.files[0];if(!file)return;if(!['image/jpeg','image/png','image/webp'].includes(file.type)){showDashboardNotice('Choose a JPG, PNG, or WebP image.');profilePhotoInput.value='';return;}if(file.size>300*1024){showDashboardNotice('Choose an image smaller than 300 KB.');profilePhotoInput.value='';return;}const reader=new FileReader();reader.onload=()=>{window.pavionPendingPhoto=String(reader.result||'');const avatar=field('dashProfileAvatar');if(avatar){avatar.textContent='';avatar.style.backgroundImage=`url(\"${window.pavionPendingPhoto}\")`;avatar.style.backgroundSize='cover';avatar.style.backgroundPosition='center';}showDashboardNotice('Picture selected. Tap Save profile to keep it.');};reader.readAsDataURL(file);});
+
 function filterDemoTransactions() {
   const type = field('historyType')?.value || 'all';
   const transactions = window.pavionTransactions || [];
@@ -316,28 +348,42 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') document.querySelectorAll('.dash-modal-backdrop.open').forEach(modal => modal.classList.remove('open'));
 });
 const sendMoneyDemoForm = field('sendMoneyDemoForm');
-if (sendMoneyDemoForm) sendMoneyDemoForm.addEventListener('submit', async event => {
+let pendingDemoTransfer = null;
+if (sendMoneyDemoForm) sendMoneyDemoForm.addEventListener('submit', event => {
   event.preventDefault();
   const recipient = field('transferRecipientName')?.value.trim();
   const accountNumber = field('transferAccountNumber')?.value.trim();
   const amount = Number(field('transferAmount')?.value);
-  const submit = sendMoneyDemoForm.querySelector('[type="submit"]');
   if (!recipient || !accountNumber || !Number.isFinite(amount) || amount <= 0) {
-    showDashboardNotice('Enter a recipient, account number, and valid amount.'); return;
+    showDashboardNotice('Enter recipient details and a valid transfer amount.'); return;
   }
-  submit.disabled=true; submit.textContent='Processing...';
+  pendingDemoTransfer = {recipient: recipient + ' (' + accountNumber + ')', amount};
+  const pinField = field('confirmTransferPinInput'); if (pinField) pinField.value='';
+  const error = field('pinConfirmError'); if (error) error.textContent='';
+  field('pinConfirmModal')?.classList.add('open');
+  setTimeout(() => pinField?.focus(), 80);
+});
+function closePinConfirmation() { field('pinConfirmModal')?.classList.remove('open'); pendingDemoTransfer=null; }
+const pinConfirmForm = field('pinConfirmForm');
+if (pinConfirmForm) pinConfirmForm.addEventListener('submit', async event => {
+  event.preventDefault();
+  const pin = field('confirmTransferPinInput')?.value || '';
+  const errorBox = field('pinConfirmError');
+  if (!/^\d{4}$/.test(pin)) { if(errorBox) errorBox.textContent='Enter exactly 4 digits.'; return; }
+  if (!pendingDemoTransfer) { closePinConfirmation(); return; }
+  const button = pinConfirmForm.querySelector('button[type="submit"]');
+  button.disabled=true; button.textContent='Verifying...';
   try {
-    const data = await apiRequest('/api/transfer', {method:'POST', body:JSON.stringify({recipient:recipient+' ('+accountNumber+')', amount})});
+    const data = await apiRequest('/api/transfer', {method:'POST', body:JSON.stringify({...pendingDemoTransfer, pin})});
     renderDashboardData(data);
-    closeDashModal('sendModal');
+    closePinConfirmation(); closeDashModal('sendModal');
     showDashboardNotice('Demo transfer recorded. No real money was sent.');
     sendMoneyDemoForm.reset();
     const localButton = document.querySelector('.transfer-toggle button');
     if (localButton) setTransferType('local', localButton);
   } catch(error) {
-    const message = error.message === 'Insufficient demo balance.' ? 'Insufficient demo balance. Contact an administrator to request a demo deposit.' : error.message;
-    showDashboardNotice(message);
-  }
-  finally { submit.disabled=false; submit.textContent='Continue'; }
+    if(errorBox) errorBox.textContent = error.message === 'Insufficient demo balance.' ? 'Insufficient demo balance. Contact an administrator to request a demo deposit.' : error.message;
+  } finally { button.disabled=false; button.textContent='Confirm Transfer'; }
 });
-
+const pinBackdrop = field('pinConfirmModal');
+if (pinBackdrop) pinBackdrop.addEventListener('click', event => { if(event.target===pinBackdrop) closePinConfirmation(); });
