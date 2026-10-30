@@ -177,6 +177,12 @@ if (loginButton) loginButton.addEventListener('click', async () => {
       body: JSON.stringify({ email, password })
     });
     const data = await response.json().catch(() => ({}));
+    if (response.status === 403 && data.code === 'ACCOUNT_DEACTIVATED') {
+      localStorage.removeItem('pavionToken');
+      localStorage.removeItem('pavionUser');
+      showSection('accountDeactivatedSection');
+      return;
+    }
     if (!response.ok) throw new Error(data.message || data.error || `Login failed (${response.status}).`);
     if (!data.token || !data.user) throw new Error('The server login response is missing account/session details.');
     localStorage.setItem('pavionToken', data.token);
